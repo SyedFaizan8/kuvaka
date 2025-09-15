@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Offer {
+  id            Int      @id @default(autoincrement())
+  name          String
+  valueProps    String[]
+  idealUseCases String[]
+  createdAt     DateTime @default(now())
+  batches       Batch[]
+}
+
+model Batch {
+  id        Int      @id @default(autoincrement())
+  offer     Offer    @relation(fields: [offerId], references: [id])
+  offerId   Int
+  createdAt DateTime @default(now())
+  leads     Lead[]
+}
+
+model Lead {
+  id          Int         @id @default(autoincrement())
+  batch       Batch       @relation(fields: [batchId], references: [id])
+  batchId     Int
+  name        String
+  role        String
+  company     String
+  industry    String
+  location    String
+  linkedinBio String?
+  createdAt   DateTime    @default(now())
+  result      LeadResult?
+}
+
+model LeadResult {
+  id        Int      @id @default(autoincrement())
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  leadId    Int      @unique
+  intent    String
+  score     Int
+  reasoning String
+  createdAt DateTime @default(now())
+}
