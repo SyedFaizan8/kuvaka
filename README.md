@@ -188,5 +188,6 @@ The code includes a parser (`parseGeminiIntent`) which extracts the `INTENT` and
 
 - Run `npx prisma generate` whenever your Prisma schema changes.
 - Ensure CSV header matches exactly: `name,role,company,industry,location,linkedin_bio`.
+- There is some dummy csv files in code base to test.
 
 ---
