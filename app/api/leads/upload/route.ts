@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
         if (!offerId || !file) {
             return NextResponse.json(
-                { error: "Missing offerId or CSV file" },
+                { error: `Missing ${!offerId ? !offerId && !file ? 'offerId and csv file' : 'offerId' : 'csv file'}` },
                 { status: 400 }
             );
         }

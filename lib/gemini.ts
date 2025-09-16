@@ -30,7 +30,7 @@ export async function callGeminiRaw(prompt: string) {
         });
 
         // SDK response shape mirrors the REST: resp.candidates[i].content.parts[j].text OR resp.text
-        const candidate = resp?.candidates?.[0] ?? null;
+        const candidate = (resp as any)?.candidates?.[0] ?? null;
         let text: string | null = null;
 
         if (candidate) {
